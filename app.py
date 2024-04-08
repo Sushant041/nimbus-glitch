@@ -20,6 +20,9 @@ GREEN = (0, 255, 0)
 # Define line width
 LINE_WIDTH = 5
 
+font_path = "font2.ttf"
+font1 = ImageFont.truetype(font_path, 70)
+
 def generate_random_glitch_color():
     """Generate a random glitch color."""
     return random.choice([RED, CYAN, GREEN])
@@ -40,7 +43,7 @@ def generate_zoom_effect(image_path):
     img = img.convert("RGB")  # Convert image to RGB mode
     img_width, img_height = img.size
     start_time = time.time()
-    while time.time() - start_time <= 2:
+    while time.time() - start_time <= 1:
         for scale in range(1, 101):
             scaled_img = img.resize((int(img_width * scale / 100), int(img_height * scale / 100)), Image.ANTIALIAS)
             frame_bytes = io.BytesIO()
@@ -73,9 +76,9 @@ def generate_glitch_frames():
                    b'Content-Type: image/jpeg\r\n\r\n' + img_bytes.read() + b'\r\n')
         
         # Generate "Welcome to NIMBUS" text frames between 2 and 5 seconds
-        elif 2 < elapsed_time <= 5:
+        elif 2 < elapsed_time <= 6:
             for color in [RED, CYAN, GREEN]:
-                text_img = generate_text_frame("Welcome to\nNIMBUS", ImageFont.truetype("arial.ttf", 70), color)
+                text_img = generate_text_frame("Welcom To \nNIMBUS 2k24", font1, color)
                 text_bytes = io.BytesIO()
                 text_img.save(text_bytes, format="JPEG")
                 text_bytes.seek(0)
